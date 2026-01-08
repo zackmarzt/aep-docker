@@ -1,13 +1,12 @@
 # Compose file for production.
 
-volumes:
-  db_data:
-  storage:
+version: "3.1"
 
 services:
   app:
+    container_name: sniper_aep
     image: snipe/snipe-it:${APP_VERSION:-latest}
-    restart: unless-stopped
+    restart: always
     volumes:
       - storage:/var/lib/snipeit
     ports:
@@ -20,8 +19,9 @@ services:
       - .env
 
   db:
+    container_name: sniper_aep_db
     image: mariadb:11.4.7
-    restart: unless-stopped
+    restart: always
     volumes:
       - db_data:/var/lib/mysql
     environment:
